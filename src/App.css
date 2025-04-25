@@ -1,0 +1,74 @@
+body {
+  background-color: #f4f4f4;
+  color: #555;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  color: #ff0000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tabela th,
+.tabela td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.cabecalho {
+  background-color: #343a40;
+  color: white;
+}
+
+.text-center {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}
+
+.btnEditar {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.btnExcluir {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.icon-editar {
+  margin-right: 5px;
+  color: white;
+}
+
+.icon-excluir {
+  margin-right: 5px;
+  color: white;
+}
+
+.alert {
+  background-color: #ffcccc;
+  color: #a00;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
