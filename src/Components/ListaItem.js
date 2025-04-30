@@ -5,7 +5,8 @@ function ListaProdutos({ produtos, aoEditar, aoExcluir }) {
     <table className="table table-bordered table-striped">
       <thead className="table-dark">
         <tr>
-          <th>Nome do Produto</th>
+          <th>Nome</th>
+          <th>Marca</th>
           <th>Preço (R$)</th>
           <th>Quantidade</th>
           <th>Ações</th>
@@ -14,12 +15,13 @@ function ListaProdutos({ produtos, aoEditar, aoExcluir }) {
       <tbody>
         {produtos.length === 0 ? (
           <tr>
-            <td colSpan="4" className="text-center">Nenhum produto adicionado</td>
+            <td colSpan="5" className="text-center">Nenhum produto adicionado</td>
           </tr>
         ) : (
           produtos.map((produto) => (
             <tr key={produto.id}>
               <td>{produto.nome}</td>
+              <td>{produto.marca}</td>
               <td>{produto.preco.toFixed(2)}</td>
               <td>{produto.quantidade}</td>
               <td>

@@ -4,6 +4,7 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
   const [nomeProduto, setNomeProduto] = useState("");
   const [precoProduto, setPrecoProduto] = useState("");
   const [quantidadeProduto, setQuantidadeProduto] = useState("");
+  const [marcaProduto, setMarcaProduto] = useState("");
   const [mensagemErro, setMensagemErro] = useState("");
 
   useEffect(() => {
@@ -11,22 +12,20 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
       setNomeProduto(itemParaEditar.nome);
       setPrecoProduto(itemParaEditar.preco);
       setQuantidadeProduto(itemParaEditar.quantidade);
+      setMarcaProduto(itemParaEditar.marca || "");
     }
   }, [itemParaEditar]);
 
   const aoSubmeterFormulario = (evento) => {
     evento.preventDefault();
 
-    if (!nomeProduto || !precoProduto || !quantidadeProduto) {
+    if (!nomeProduto || !precoProduto || !quantidadeProduto || !marcaProduto) {
       setMensagemErro("Por favor, preencha todos os campos.");
       return;
     }
 
-    const preco = parseFloat(precoProduto);
-    const quantidade = parseInt(quantidadeProduto, 10);
-
-    if (preco <= 0 || quantidade <= 0) {
-      setMensagemErro("Preço e quantidade devem ser maiores que zero.");
+    if (parseFloat(precoProduto) < 1 || parseInt(quantidadeProduto, 10) < 1) {
+      setMensagemErro("Preço e quantidade devem ser maiores ou iguais a 1.");
       return;
     }
 
@@ -35,8 +34,9 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
     const item = {
       id: itemParaEditar ? itemParaEditar.id : null,
       nome: nomeProduto,
-      preco: preco,
-      quantidade: quantidade
+      preco: parseFloat(precoProduto),
+      quantidade: parseInt(quantidadeProduto, 10),
+      marca: marcaProduto,
     };
 
     aoSalvar(item);
@@ -44,6 +44,7 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
     setNomeProduto("");
     setPrecoProduto("");
     setQuantidadeProduto("");
+    setMarcaProduto("");
   };
 
   return (
@@ -53,7 +54,7 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
       {mensagemErro && <div className="alert alert-danger">{mensagemErro}</div>}
 
       <div className="row g-3">
-        <div className="col-md-4">
+        <div className="col-md-3">
           <label htmlFor="nomeProduto">Nome do Produto</label>
           <input
             id="nomeProduto"
@@ -64,20 +65,20 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
           />
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-2">
           <label htmlFor="precoProduto">Preço (R$)</label>
           <input
             id="precoProduto"
             className="form-control"
             type="number"
+            min="1"
             step="0.01"
-            min="0.01"
             value={precoProduto}
             onChange={(e) => setPrecoProduto(e.target.value)}
           />
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-2">
           <label htmlFor="quantidadeProduto">Quantidade</label>
           <input
             id="quantidadeProduto"
@@ -86,6 +87,17 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
             min="1"
             value={quantidadeProduto}
             onChange={(e) => setQuantidadeProduto(e.target.value)}
+          />
+        </div>
+
+        <div className="col-md-3">
+          <label htmlFor="marcaProduto">Marca</label>
+          <input
+            id="marcaProduto"
+            className="form-control"
+            type="text"
+            value={marcaProduto}
+            onChange={(e) => setMarcaProduto(e.target.value)}
           />
         </div>
 
