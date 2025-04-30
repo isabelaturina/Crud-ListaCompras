@@ -22,13 +22,21 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
       return;
     }
 
+    const preco = parseFloat(precoProduto);
+    const quantidade = parseInt(quantidadeProduto, 10);
+
+    if (preco <= 0 || quantidade <= 0) {
+      setMensagemErro("Preço e quantidade devem ser maiores que zero.");
+      return;
+    }
+
     setMensagemErro("");
 
     const item = {
       id: itemParaEditar ? itemParaEditar.id : null,
       nome: nomeProduto,
-      preco: parseFloat(precoProduto),
-      quantidade: parseInt(quantidadeProduto, 10)
+      preco: preco,
+      quantidade: quantidade
     };
 
     aoSalvar(item);
@@ -63,6 +71,7 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
             className="form-control"
             type="number"
             step="0.01"
+            min="0.01"
             value={precoProduto}
             onChange={(e) => setPrecoProduto(e.target.value)}
           />
@@ -74,6 +83,7 @@ function FormularioItem({ aoSalvar, itemParaEditar }) {
             id="quantidadeProduto"
             className="form-control"
             type="number"
+            min="1"
             value={quantidadeProduto}
             onChange={(e) => setQuantidadeProduto(e.target.value)}
           />
